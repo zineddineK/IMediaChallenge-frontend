@@ -59,10 +59,11 @@ const AddProductForm: React.FC<ProductFormProps> = ({
 		validateOnBlur: false,
 		onSubmit: async (values, actions) => {
 			const body = {
-				price: values.price,
+				price: Number(values.price),
 				title: values.title,
 				category: {
-					id: values.category,
+					id: Number(values.category),
+					name: '',
 				},
 				currency: values.currency,
 			}

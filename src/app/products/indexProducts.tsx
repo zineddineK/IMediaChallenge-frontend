@@ -2,8 +2,6 @@ import {
 	Text,
 	Box,
 	Flex,
-	Input,
-	Select,
 	Image,
 	IconButton,
 	useDisclosure,
@@ -32,7 +30,6 @@ import AddProductForm from './AddProductForm'
 import Pagination, { PageProps } from '../common/components/Pagination'
 import styled from 'styled-components'
 import IndexCtagories from '../categories/indexCategories'
-import AddCategoryForm from '../categories/AddCategoryForm'
 import useSWR from 'swr'
 import { fetcher, request } from '../common/helpers/api'
 
@@ -51,14 +48,11 @@ const defaultImage =
 	'https://propertywiselaunceston.com.au/wp-content/themes/property-wise/images/no-image.png'
 
 const IndexProducts: React.FC = (): React.ReactElement => {
-	const [currency, setCurrency] = useState('')
 	const [detailProduct, setDetailProduct] = useState<ProductInterface>()
 	const { data: products } = useSWR('/products', fetcher)
-	const { data: currencies } = useSWR('/currencies', fetcher)
 	const toast = useToast()
 
 	const { isOpen: viewItem, onOpen: onOpenItem, onClose: onCloseItem } = useDisclosure()
-	const { isOpen: isOpenCat, onOpen: onOpenCat, onClose: onCloseCat } = useDisclosure()
 	const { isOpen: isUpdateItem, onOpen: onUpdateItem, onClose: onCloseUpdateItem } = useDisclosure()
 	const { isOpen: isAddItem, onOpen: onAddItem, onClose: onCloseAddItem } = useDisclosure()
 
@@ -112,21 +106,6 @@ const IndexProducts: React.FC = (): React.ReactElement => {
 			>
 				<Flex>
 					<Button
-						flex={1}
-						mr="20px"
-						bg="#256D85"
-						w="250px"
-						h="40px"
-						color="white"
-						_hover={{ background: '#DFF6FF', color: '#256D85' }}
-						ml="16px"
-						fontSize="sm"
-						onClick={(): void => onOpenCat()}
-					>
-						Add new categpry
-					</Button>
-					<Button
-						flex={1}
 						mr="20px"
 						bg="#325288"
 						w="250px"
@@ -139,32 +118,6 @@ const IndexProducts: React.FC = (): React.ReactElement => {
 					>
 						Add new product
 					</Button>
-
-					<Input
-						mr="20px"
-						flex={1}
-						placeholder="Search product"
-						fontSize="sm"
-						_placeholder={{ color: 'gray.800' }}
-					/>
-					<Select
-						flex={1}
-						fontSize="sm"
-						mr="20px"
-						border="1px solid #DADADA"
-						name="currency"
-						value={currency}
-						onChange={(event: React.ChangeEvent<HTMLSelectElement>): void => {
-							setCurrency(event.target.value)
-						}}
-					>
-						{currencies &&
-							currencies.map((cn: string, i: number) => (
-								<option key={i} value={cn}>
-									{cn}
-								</option>
-							))}
-					</Select>
 				</Flex>
 				<Flex mt="30px">
 					<Flex flex={1}>
@@ -305,18 +258,6 @@ const IndexProducts: React.FC = (): React.ReactElement => {
 					<ModalCloseButton />
 					<ModalBody justifyContent="center" overflow="visible">
 						<UpdateProductForm detailProduct={detailProduct} onClose={onCloseUpdateItem} />
-					</ModalBody>
-				</ModalContent>
-			</Modal>
-			<Modal isOpen={isOpenCat} onClose={onCloseCat} size="2xl" isCentered>
-				<ModalOverlay />
-				<ModalContent p={5}>
-					<ModalHeader fontSize="lg" color="#256D85">
-						Add new category
-					</ModalHeader>
-					<ModalCloseButton />
-					<ModalBody justifyContent="center" overflow="visible">
-						<AddCategoryForm />
 					</ModalBody>
 				</ModalContent>
 			</Modal>

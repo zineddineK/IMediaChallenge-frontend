@@ -20,9 +20,10 @@ interface ProductFormProps {
 	onClose: () => void
 }
 
-interface CategoryInterface {
+export interface CategoryInterface {
 	id: number
 	name?: string
+	parent?: any
 }
 
 export interface ProductInterface {

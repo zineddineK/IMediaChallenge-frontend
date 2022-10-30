@@ -8,14 +8,13 @@ import {
 	Divider,
 	Flex,
 	Heading,
-	Text,
 } from '@chakra-ui/react'
 import React from 'react'
 import useSWR from 'swr'
 import { fetcher } from '../common/helpers/api'
 
 const IndexCtagories: React.FC = (): React.ReactElement => {
-	const { data: categories } = useSWR('/categories', fetcher)
+	const { data: categories } = useSWR('/categories/main', fetcher)
 
 	return (
 		<Flex
@@ -43,15 +42,13 @@ const IndexCtagories: React.FC = (): React.ReactElement => {
 									<AccordionIcon />
 								</AccordionButton>
 							</h2>
-							{item && item.parent ? (
-								<AccordionPanel bg="white">
-									<li>{item.parent.name}</li>
-								</AccordionPanel>
-							) : (
-								<AccordionPanel bg="white">
-									<Text>No sub category</Text>
-								</AccordionPanel>
-							)}
+							{item &&
+								item.children &&
+								item.children.map((chlid: any, index: any) => (
+									<AccordionPanel bg="white">
+										<li>{chlid.name}</li>
+									</AccordionPanel>
+								))}
 						</AccordionItem>
 					</Accordion>
 				))}

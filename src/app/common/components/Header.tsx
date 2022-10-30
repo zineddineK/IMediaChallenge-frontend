@@ -2,7 +2,7 @@ import * as React from 'react'
 
 import { chakra, Flex, FlexProps } from '@chakra-ui/react'
 
-import { ReactComponent as Logo } from '../../assets/illustrations/logo-img.svg'
+import Logo from '../../assets/illustrations/shopping.png'
 import AtomReact from '../../assets/illustrations/atom.png'
 import Nav from './Navbar'
 
@@ -12,7 +12,7 @@ const Header: React.FC<HeaderProps> = ({ ...props }: HeaderProps): React.ReactEl
 	return (
 		<Flex {...props} justify="space-between" align="center" bg="#EFFFFD">
 			<Flex p={5}>
-				<Logo />
+				<chakra.img src={Logo} width="100px" height="70px" />
 			</Flex>
 			<Flex flex={1}>
 				<Nav />
